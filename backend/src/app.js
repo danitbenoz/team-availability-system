@@ -95,9 +95,6 @@ app.post("/api/auth/login", async (req, res) => {
 
     const user = userResult.rows[0];
 
-    console.log("user.password",user.password);
-    console.log("password", password);
-
     const ok = await bcrypt.compare(password, user.password);
     if (!ok) {
       return res
@@ -134,6 +131,76 @@ app.post("/api/auth/login", async (req, res) => {
       success: false,
       error: "Internal server error",
       message: error.message,
+    });
+  }
+});
+
+app.get("/api/statuses", async (req, res) => {
+  try {
+    console.log('Fetching statuses from database...');
+    
+    const result = await pool.query(
+      'SELECT id, name, created_at FROM statuses ORDER BY id ASC'
+    );
+
+    console.log(`Found ${result.rows.length} statuses in database`);
+
+    res.json({
+      success: true,
+      statuses: result.rows.map(status => ({
+        id: status.id,
+        name: status.name,
+        createdAt: status.created_at
+      })),
+      total: result.rows.length
+    });
+
+  } catch (error) {
+    console.error('Database error fetching statuses:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch statuses from database',
+      message: error.message
+    });
+  }
+});
+
+app.get('/api/users', async (req, res) => {
+  try {
+    console.log('Fetching users from database...');
+    
+    const result = await pool.query(`
+      SELECT u.id, u.username, u.full_name, u.email,
+             s.name as current_status, s.id as status_id,
+             u.created_at, u.updated_at
+      FROM users u 
+      LEFT JOIN statuses s ON u.current_status_id = s.id 
+      ORDER BY u.id ASC
+    `);
+
+    console.log(`Found ${result.rows.length} users in database`);
+
+    res.json({
+      success: true,
+      users: result.rows.map(user => ({
+        id: user.id,
+        username: user.username,
+        fullName: user.full_name,
+        email: user.email,
+        currentStatus: user.current_status || 'Working',
+        statusId: user.status_id,
+        createdAt: user.created_at,
+        updatedAt: user.updated_at
+      })),
+      total: result.rows.length
+    });
+
+  } catch (error) {
+    console.error('Database error fetching users:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch users from database',
+      message: error.message
     });
   }
 });

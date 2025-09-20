@@ -1,0 +1,23 @@
+{
+  "name": "team-availability-system",              
+  "version": "1.0.0",           
+  "description": "My React app", 
+  "main": "index.js",            
+  "scripts": {                   
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "lint": "eslint ."
+  },
+  "keywords": ["react", "frontend"],
+  "author": "Danit",
+  "license": "MIT",
+  "dependencies": {              
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {           
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"
+  }
+}

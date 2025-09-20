@@ -5,9 +5,9 @@ import './Dashboard.css';
 
 const STATUS_COLORS = {
   Working: "#1a6bddff",
-  "Working Remotely": "#abc8e0ff",
+  "Working Remotely": "#16174aff",
   "On Vacation": "rgba(177, 177, 174, 1)",
-  "Business Trip": "#f9ffa4ff",
+  "Business Trip": "#f7d541",
 };
 
 const getStatusColor = (statusName) => STATUS_COLORS[statusName] || "#757575";

@@ -1,0 +1,218 @@
+.status-container {
+    min-height: 100vh;
+    background-color: #f5f7fa;
+  }
+  
+  .status-header {
+    background: white;
+    padding: 20px 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .status-header h1 {
+    color: #333;
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .welcome-message {
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .logout-button {
+    padding: 8px 16px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  .logout-button:hover {
+    background-color: #d32f2f;
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .status-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  .my-status-section {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+  }
+  
+  .my-status-section h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .status-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+  
+  .status-option {
+    padding: 12px 20px;
+    border: 2px solid;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: white;
+  }
+  
+  .status-option:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .status-option:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  .status-option.active {
+    font-weight: 600;
+  }
+  
+  .team-status-section {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-header {
+    margin-bottom: 30px;
+  }
+  
+  .section-header h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .filter-label {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .filter-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .filter-chip {
+    padding: 6px 14px;
+    border: 1px solid;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: white;
+  }
+  
+  .filter-chip:hover {
+    transform: scale(1.05);
+  }
+  
+  .filter-chip.active {
+    font-weight: 500;
+  }
+  
+  .team-members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  .member-card {
+    background: #fafafa;
+    padding: 20px;
+    border-radius: 6px;
+    border-left: 4px solid;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .member-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .member-card.current-user {
+    background: #e3f2fd;
+  }
+  
+  .member-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .member-info h3 {
+    color: #333;
+    font-size: 16px;
+    margin: 0;
+  }
+  
+  .you-badge {
+    background: #2196f3;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  
+  .member-status {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .member-updated {
+    color: #999;
+    font-size: 12px;
+  }
+  
+  
+  

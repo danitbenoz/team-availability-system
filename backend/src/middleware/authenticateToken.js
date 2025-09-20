@@ -1,19 +1,13 @@
 const jwt = require("jsonwebtoken");
-const { Pool } = require("pg");
+const { query } = require("../config/database");
 
-const pool = new Pool({
-  host: process.env.DB_HOST || "localhost",
-  port: process.env.DB_PORT || 5432,
-  database: process.env.DB_NAME || "team_availability",
-  user: process.env.DB_USER || "postgres",
-  password: process.env.DB_PASSWORD,
-});
-
+// Middleware to check if user is logged in with a valid token
 const authenticateToken = async (req, res, next) => {
-  console.log("req", req);
+  // Extract token from Authorization header (format: "Bearer <token>")
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
+  // No token provided - user needs to login
   if (!token) {
     return res.status(401).json({
       success: false,
@@ -23,9 +17,11 @@ const authenticateToken = async (req, res, next) => {
   }
 
   try {
+    // Verify the token is valid and not expired
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const userResult = await pool.query(
+    // Make sure the user still exists in database
+    const userResult = await query(
       "SELECT id, username, email, full_name FROM users WHERE id = $1",
       [decoded.userId]
     );
@@ -38,11 +34,13 @@ const authenticateToken = async (req, res, next) => {
       });
     }
 
+    // Add user info to request so other routes can use it
     req.user = userResult.rows[0];
-    next();
+    next(); // Continue to the actual route
   } catch (error) {
     console.error("Token verification error:", error);
 
+    // Handle expired tokens specifically
     if (error.name === "TokenExpiredError") {
       return res.status(401).json({
         success: false,
@@ -51,6 +49,7 @@ const authenticateToken = async (req, res, next) => {
       });
     }
 
+    // Invalid or corrupted token
     return res.status(403).json({
       success: false,
       error: "Invalid token",

@@ -3,6 +3,8 @@ import { useAuth } from "../context/AuthContext";
 import { statusesAPI, usersAPI } from "../services/api";
 import './Dashboard.css';
 
+// Color scheme for different status types
+
 const STATUS_COLORS = {
   Working: "#1a6bddff",
   "Working Remotely": "#16174aff",
@@ -10,8 +12,10 @@ const STATUS_COLORS = {
   "Business Trip": "#f7d541",
 };
 
+// Helper to get color for a status, with fallback
 const getStatusColor = (statusName) => STATUS_COLORS[statusName] || "#757575";
 
+// Helper to normalize user data since it might come in different formats
 const normalizeMember = (raw) => {
   const statusName =
     raw.status ??
@@ -28,30 +32,36 @@ const normalizeMember = (raw) => {
 
 const DashboardPage = () => {
   const { user, logout, updateUser } = useAuth();
-  const [teamMembers, setTeamMembers] = useState([]);
-  const [myStatus, setMyStatus] = useState("Working");
-  const [filterStatus, setFilterStatus] = useState([]);
-  const [statuses, setStatuses] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
-  const [error, setError] = useState(null);
+  // State for all the data we need
+  const [teamMembers, setTeamMembers] = useState([]);    // List of all team members
+  const [myStatus, setMyStatus] = useState("Working");   // Current user's status
+  const [filterStatus, setFilterStatus] = useState([]); // Which statuses to show
+  const [statuses, setStatuses] = useState([]);         // Available status options
+  const [isLoading, setIsLoading] = useState(true);     // Loading initial data
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false); // Updating status
+  const [error, setError] = useState(null);             // Any errors
 
+  // Function to load all data when page starts
   const loadData = async () => {
     setIsLoading(true);
     setError(null);
     try {
+      // Get users and available statuses at the same time
       const [usersRes, statusesRes] = await Promise.all([
         usersAPI.getAllUsers(),
         statusesAPI.getAllStatuses(),
       ]);
 
+      // Process user data to make sure status format is consistent
       const rawUsers = usersRes.data?.users ?? [];
       const normUsers = rawUsers.map(normalizeMember);
       setTeamMembers(normUsers);
 
+      // Set available status options
       const sts = statusesRes.data?.statuses ?? [];
       setStatuses(sts);
 
+      // Find current user's status
       if (user) {
       const me = normUsers.find(u => u.id === user.id || u.username === user.username);
       if (me) setMyStatus(me.status ?? null);
@@ -93,11 +103,8 @@ const DashboardPage = () => {
 
       const res = await usersAPI.updateUserStatus(statusObj.id);
 
-      console.log("res");
       const srvUser = res.data?.user;
-      console.log("srvUser", srvUser);
       if (srvUser) {
-        console.log("this is srvUser");
         updateUser({
           currentStatus:
             typeof srvUser.currentStatus === "string"
@@ -139,7 +146,7 @@ const DashboardPage = () => {
         {error && <div className="error-banner">{error}</div>}
 
         <div className="my-status-section">
-          <h2>My Status</h2>
+          <h2>Update my current status:</h2>
           <div className="status-selector">
             {statuses.map((status) => {
               const active = myStatus === status.name;
@@ -167,7 +174,7 @@ const DashboardPage = () => {
         {/* Team Members Section */}
         <div className="team-status-section">
           <div className="section-header">
-            <h2>Team Members</h2>
+            <h2>List of employees:</h2>
             <div className="filter-section">
               <span className="filter-label">Filter by status:</span>
               <div className="filter-chips">

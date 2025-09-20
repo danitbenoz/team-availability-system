@@ -11,32 +11,40 @@ import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import "./index.css";
 
+// Component that protects routes - only logged in users can access
+
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
+  // Still checking if user is logged in
   if (loading) {
     return null;
   }
 
+  // If user is logged in, show the page. Otherwise redirect to login
   return user ? children : <Navigate to="/login" />;
 };
+
+// Component for login page - redirects to dashboard if already logged in
 
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
+  // Still checking login status
   if (loading) {
     return null;
   }
-  console.log("user", user);
+  // If not logged in, show login page. If already logged in, go to dashboard
   return !user ? children : <Navigate to="/dashboard" />;
 };
 
 function App() {
   return (
     <Router>
-      <AuthProvider>
+      <AuthProvider> {/* Provides login state to all components */}
         <div className="min-h-screen bg-gray-50">
           <Routes>
+            {/* Login page - only show if not logged in */}
             <Route
               path="/login"
               element={
@@ -46,7 +54,7 @@ function App() {
               }
             />
 
-            {/* Protected Routes */}
+            {/* Dashboard - only show if logged in */}
             <Route
               path="/dashboard"
               element={
@@ -56,8 +64,10 @@ function App() {
               }
             />
 
+            {/* Default route - go to dashboard */}
             <Route path="/" element={<Navigate to="/dashboard" />} />
 
+            {/* 404 page for any other routes */}
             <Route
               path="*"
               element={

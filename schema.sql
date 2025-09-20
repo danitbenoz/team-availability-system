@@ -30,7 +30,7 @@ INSERT INTO statuses (name) VALUES
     ('Working'),
     ('Working Remotely'),
     ('On Vacation'),
-    ('Bussiness Trip')
+    ('Business Trip')
 ON CONFLICT (name) DO NOTHING;
 
 -- Insert sample users (passwords are hashed for 'password123')

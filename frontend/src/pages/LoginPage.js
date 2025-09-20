@@ -1,19 +1,18 @@
-
-import React, { useState } from 'react';
-
+import React, { useState } from "react";
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoading,setIsLoading]=useState(false);
-  const [error, setError] = useState('');
-
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setIsLoading(true);
-
+    const u = username.trim();
+    const p = password; 
+    if (!u || !p) throw new Error("Username and password are required");
   };
 
   return (
@@ -42,7 +41,7 @@ const LoginPage = () => {
             <div className="pw-row">
               <input
                 id="password"
-                type='password'
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
@@ -50,17 +49,15 @@ const LoginPage = () => {
                 required
                 disabled={isLoading}
               />
-            
             </div>
           </div>
 
           {error && <div className="error-message">{error}</div>}
 
           <button type="submit" className="login-button" disabled={isLoading}>
-            {isLoading ? 'Logging in…' : 'Login'}
+            {isLoading ? "Logging in…" : "Login"}
           </button>
         </form>
-        
       </div>
     </div>
   );

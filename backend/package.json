@@ -1,0 +1,25 @@
+{
+    "name": "team-availability-backend",
+    "version": "1.0.0",
+    "description": "Backend API for Team Availability System",
+    "main": "src/app.js",
+    "scripts": {
+        "start": "node src/app.js"
+    },
+    "keywords": [
+        "team",
+        "availability",
+        "status",
+        "api"
+    ],
+    "author": "Team Availability Developer",
+    "license": "MIT",
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "dependencies": {
+        "dotenv": "^17.2.2",
+        "express": "^5.1.0",
+        "pg": "^8.16.3"
+    }
+}

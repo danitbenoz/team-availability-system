@@ -12,23 +12,6 @@ const statusesRoutes = require("./routes/statuses");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const pool = new Pool({
-  host: process.env.DB_HOST || "localhost",
-  port: process.env.DB_PORT || 5432,
-  database: process.env.DB_NAME || "team_availability",
-  user: process.env.DB_USER || "postgres",
-  password: process.env.DB_PASSWORD,
-});
-
-//test database connection when startup
-pool.on("connect", () => {
-  console.log("Database connected successfully");
-});
-
-pool.on("error", (err) => {
-  console.error("Database connection error:", err);
-});
-
 // Security middleware - protects against common attacks
 app.use(helmet());
 app.use(

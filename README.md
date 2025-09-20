@@ -28,6 +28,7 @@ team-availability-system/
 ```bash
 git clone https://github.com/danitbenoz/team-availability-system.git
 cd team-availability-system
+cd backend
 cp env.example .env
 ```
 

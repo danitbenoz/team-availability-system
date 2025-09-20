@@ -6,7 +6,7 @@ import './Dashboard.css';
 const STATUS_COLORS = {
   Working: "#1a6bddff",
   "Working Remotely": "#abc8e0ff",
-  "On Vacation": "rgba(232, 255, 27, 1)",
+  "On Vacation": "rgba(177, 177, 174, 1)",
   "Business Trip": "#f9ffa4ff",
 };
 

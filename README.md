@@ -29,7 +29,7 @@ team-availability-system/
 git clone https://github.com/danitbenoz/team-availability-system.git
 cd team-availability-system
 cd backend
-cp env.example .env
+cp ../env.example .env
 ```
 
 ### 2. Start Database

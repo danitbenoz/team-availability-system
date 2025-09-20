@@ -13,6 +13,7 @@ const LoginPage = () => {
     const u = username.trim();
     const p = password; 
     if (!u || !p) throw new Error("Username and password are required");
+    
   };
 
   return (

@@ -1,19 +1,37 @@
 import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate, useLocation } from "react-router-dom";
+import "./LoginPage.css";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = (location.state && location.state.from) || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
-    const u = username.trim();
-    const p = password; 
-    if (!u || !p) throw new Error("Username and password are required");
-    
+    try {
+      const u = username.trim();
+      const p = password;
+      if (!u || !p) throw new Error("Username and password are required");
+
+      const result = await login(u, p); // saves token + hydrates /users/me
+      if (!result?.success) throw new Error(result?.error || "Login failed");
+
+      navigate(from, { replace: true });
+    } catch (err) {
+      console.error("Login error:", err);
+      setError(err.message || "Login failed");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

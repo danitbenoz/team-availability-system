@@ -1,6 +1,6 @@
 # Team Availability System
 
-A full-stack web application for managing team availability and status tracking. The system consists of a React frontend with Tailwind CSS and a Node.js/Express backend with PostgreSQL database.
+A full-stack web application for managing team availability and status tracking. The system consists of a React frontend with CSS and a Node.js/Express backend with PostgreSQL database.
 
 ## Prerequisites
 
